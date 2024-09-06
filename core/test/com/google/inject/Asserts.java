@@ -20,6 +20,7 @@ import static com.google.common.base.StandardSystemProperty.JAVA_CLASS_PATH;
 import static com.google.common.base.StandardSystemProperty.PATH_SEPARATOR;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.inject.internal.InternalFlags.getIncludeStackTraceOption;
+import static io.github.pixee.security.ObjectInputFilters.createSafeObjectInputStream;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertSame;
@@ -147,7 +148,7 @@ public class Asserts {
       new ObjectOutputStream(out).writeObject(original);
       ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
       @SuppressWarnings("unchecked") // the reserialized type is assignable
-      E reserialized = (E) new ObjectInputStream(in).readObject();
+      E reserialized = (E) createSafeObjectInputStream(in).readObject();
       return reserialized;
     } catch (ClassNotFoundException e) {
       throw new RuntimeException(e);

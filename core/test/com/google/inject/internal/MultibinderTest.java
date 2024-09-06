@@ -26,6 +26,7 @@ import static com.google.inject.internal.SpiUtils.assertSetVisitor;
 import static com.google.inject.internal.SpiUtils.instance;
 import static com.google.inject.internal.SpiUtils.providerInstance;
 import static com.google.inject.name.Names.named;
+import io.github.pixee.security.ObjectInputFilters;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.google.common.base.Optional;
@@ -359,6 +360,7 @@ public class MultibinderTest extends TestCase {
     }
     ObjectInputStream objectInputStream =
         new ObjectInputStream(new ByteArrayInputStream(byteStream.toByteArray()));
+    ObjectInputFilters.enableObjectFilterIfUnprotected(objectInputStream);
     try {
       Object setCopy = objectInputStream.readObject();
       assertEquals(set, setCopy);
