@@ -115,6 +115,7 @@ See the Apache License Version 2.0 for the specific language governing permissio
     <guice.lastStableRelease>7.0.0</guice.lastStableRelease>
     <guice.skipTests>false</guice.skipTests>
     <gpg.skip>true</gpg.skip>
+    <versions.java-security-toolkit>1.2.0</versions.java-security-toolkit>
   </properties>
 
   <dependencyManagement>
@@ -177,6 +178,11 @@ See the Apache License Version 2.0 for the specific language governing permissio
         <artifactId>jsr305</artifactId>
         <version>3.0.1</version>
         <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>io.github.pixee</groupId>
+        <artifactId>java-security-toolkit</artifactId>
+        <version>${versions.java-security-toolkit}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
