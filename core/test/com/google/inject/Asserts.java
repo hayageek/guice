@@ -20,6 +20,8 @@ import static com.google.common.base.StandardSystemProperty.JAVA_CLASS_PATH;
 import static com.google.common.base.StandardSystemProperty.PATH_SEPARATOR;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.inject.internal.InternalFlags.getIncludeStackTraceOption;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertSame;
@@ -212,7 +214,7 @@ public class Asserts {
         try {
           urls.add(new File(entry).toURI().toURL());
         } catch (SecurityException e) { // File.toURI checks to see if the file is a directory
-          urls.add(new URL("file", null, new File(entry).getAbsolutePath()));
+          urls.add(Urls.create("file", null, new File(entry).getAbsolutePath(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
         }
       } catch (MalformedURLException e) {
         AssertionError error = new AssertionError("malformed class path entry: " + entry);
